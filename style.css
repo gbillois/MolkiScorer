@@ -378,15 +378,23 @@ html, body {
 }
 
 .pins-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
     width: 100%;
-    max-width: 320px;
+    max-width: 340px;
+}
+
+.pins-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
 }
 
 .pin-btn {
-    aspect-ratio: 1;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
     border: 3px solid var(--bg-light);
     background: var(--bg-card);
@@ -398,26 +406,39 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .pin-btn.selected {
     border-color: var(--green);
     background: var(--green-dark);
     color: #fff;
-    transform: scale(1.08);
+    transform: scale(1.1);
+    box-shadow: 0 0 12px rgba(46, 204, 113, 0.4);
 }
 
 .pin-btn:active {
-    transform: scale(0.92);
+    transform: scale(0.9);
 }
 
 /* Score preview */
 .score-preview {
     margin-top: 12px;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--yellow);
     min-height: 1.5em;
+    text-align: center;
+}
+
+.score-preview.warning {
+    color: var(--accent);
+}
+
+/* Clear button */
+.btn-clear {
+    border-color: var(--accent-light) !important;
+    color: var(--accent-light) !important;
 }
 
 /* Action bar */

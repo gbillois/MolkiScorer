@@ -43,7 +43,9 @@
         winnerTitle: $('#winner-title'),
         winnerName: $('#winner-name'),
         finalScores: $('#final-scores'),
-        btnNewGame: $('#btn-new-game')
+        btnNewGame: $('#btn-new-game'),
+        btnClear: $('#btn-clear'),
+        scorePreview: $('#score-preview')
     };
 
     // ==================== SCREENS ====================
@@ -134,14 +136,26 @@
 
     function buildPinsGrid() {
         dom.pinsGrid.innerHTML = '';
-        for (let i = 1; i <= 12; i++) {
-            const btn = document.createElement('button');
-            btn.className = 'pin-btn';
-            btn.textContent = i;
-            btn.dataset.pin = i;
-            btn.addEventListener('click', () => togglePin(i));
-            dom.pinsGrid.appendChild(btn);
-        }
+        // Disposition en losange comme le vrai Mölkky
+        const rows = [
+            [1, 2],
+            [3, 4, 5],
+            [6, 7, 8, 9],
+            [10, 11, 12]
+        ];
+        rows.forEach(pins => {
+            const row = document.createElement('div');
+            row.className = 'pins-row';
+            pins.forEach(num => {
+                const btn = document.createElement('button');
+                btn.className = 'pin-btn';
+                btn.textContent = num;
+                btn.dataset.pin = num;
+                btn.addEventListener('click', () => togglePin(num));
+                row.appendChild(btn);
+            });
+            dom.pinsGrid.appendChild(row);
+        });
     }
 
     function togglePin(num) {
@@ -162,12 +176,26 @@
     }
 
     function updateValidateButton() {
-        dom.btnValidate.disabled = state.selectedPins.size === 0;
-        if (state.selectedPins.size === 0) {
+        const hasPins = state.selectedPins.size > 0;
+        dom.btnValidate.disabled = !hasPins;
+        dom.btnClear.style.display = hasPins ? '' : 'none';
+
+        if (!hasPins) {
             dom.btnValidate.textContent = 'Valider';
+            dom.scorePreview.textContent = '';
         } else {
             const pts = calculatePoints();
-            dom.btnValidate.textContent = `Valider (+${pts} pts)`;
+            const player = getCurrentPlayer();
+            const newTotal = player.score + pts;
+            dom.btnValidate.textContent = `Valider (+${pts})`;
+
+            if (state.mode === 'normal' && newTotal > TARGET_SCORE) {
+                dom.scorePreview.textContent = `${player.score} + ${pts} = ${newTotal} > 50 → retour à 25 !`;
+                dom.scorePreview.className = 'score-preview warning';
+            } else {
+                dom.scorePreview.textContent = `${player.score} + ${pts} = ${newTotal}`;
+                dom.scorePreview.className = 'score-preview';
+            }
         }
     }
 
@@ -397,6 +425,11 @@
     // Game actions
     dom.btnValidate.addEventListener('click', handleValidate);
     dom.btnMiss.addEventListener('click', handleMiss);
+    dom.btnClear.addEventListener('click', () => {
+        state.selectedPins.clear();
+        updatePinsUI();
+        updateValidateButton();
+    });
 
     // New game
     dom.btnNewGame.addEventListener('click', () => {
