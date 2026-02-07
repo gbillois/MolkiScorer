@@ -252,19 +252,20 @@ html, body {
 }
 
 .btn-quit {
-    width: 36px;
-    height: 36px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     border: 2px solid var(--text-muted);
     background: transparent;
     color: var(--text-muted);
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.15s;
     -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0;
 }
 
 .btn-quit:active {
