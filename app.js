@@ -276,17 +276,24 @@
         player.misses++;
 
         if (player.misses >= MAX_MISSES) {
-            player.eliminated = true;
-            showToast(`${player.name} est éliminé ! (3 ratés)`, '');
+            if (state.mode === 'kids') {
+                // Mode enfant : on passe juste son tour, pas d'élimination
+                player.misses = 0;
+                showToast(`${player.name} passe son tour ! (3 ratés)`, '');
+            } else {
+                // Mode normal : élimination
+                player.eliminated = true;
+                showToast(`${player.name} est éliminé ! (3 ratés)`, '');
 
-            const active = getActivePlayers();
-            if (active.length === 1) {
-                endGame(active[0]);
-                return;
-            }
-            if (active.length === 0) {
-                endGame(null);
-                return;
+                const active = getActivePlayers();
+                if (active.length === 1) {
+                    endGame(active[0]);
+                    return;
+                }
+                if (active.length === 0) {
+                    endGame(null);
+                    return;
+                }
             }
         }
 
