@@ -251,6 +251,28 @@ html, body {
     border-bottom: 1px solid var(--bg-light);
 }
 
+.btn-quit {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--text-muted);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-quit:active {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: scale(0.9);
+}
+
 .current-player-info {
     flex: 1;
     display: flex;

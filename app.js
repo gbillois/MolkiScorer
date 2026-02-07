@@ -392,6 +392,14 @@
     }
 
     // ==================== EVENT LISTENERS ====================
+    // Quit game
+    $('#btn-quit').addEventListener('click', () => {
+        if (confirm('Arrêter la partie en cours ?')) {
+            showScreen('home');
+            renderPlayerList();
+        }
+    });
+
     // Mode toggle
     dom.btnModeNormal.addEventListener('click', () => {
         state.mode = 'normal';
