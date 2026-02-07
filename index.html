@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Mölkky Scorer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Écran d'accueil -->
+    <div id="screen-home" class="screen active">
+        <div class="home-container">
+            <h1 class="title">Mölkky<br><span class="subtitle">Scorer</span></h1>
+
+            <div class="mode-toggle">
+                <button id="btn-mode-normal" class="mode-btn active" data-mode="normal">Normal</button>
+                <button id="btn-mode-kids" class="mode-btn" data-mode="kids">Enfant</button>
+            </div>
+            <p id="mode-description" class="mode-desc">Premier à 50 points pile. Dépassement = retour à 25.</p>
+
+            <div class="players-setup">
+                <h2>Joueurs</h2>
+                <div id="player-list"></div>
+                <div class="add-player">
+                    <input type="text" id="input-player-name" placeholder="Nom du joueur" maxlength="15">
+                    <button id="btn-add-player" class="btn-round">+</button>
+                </div>
+            </div>
+
+            <button id="btn-start" class="btn-primary" disabled>Commencer la partie</button>
+        </div>
+    </div>
+
+    <!-- Écran de jeu -->
+    <div id="screen-game" class="screen">
+        <div class="game-header">
+            <div class="current-player-info">
+                <span class="label">Tour de</span>
+                <span id="current-player-name" class="player-name-display"></span>
+                <span id="current-player-score" class="player-score-display">0 pts</span>
+            </div>
+            <div id="miss-indicators" class="miss-dots"></div>
+            <div id="game-mode-badge" class="mode-badge">Normal</div>
+        </div>
+
+        <div class="scoreboard-mini" id="scoreboard-mini"></div>
+
+        <div class="pin-selector">
+            <p class="instruction">Quilles renversées :</p>
+            <div class="pins-grid" id="pins-grid"></div>
+        </div>
+
+        <div class="action-bar">
+            <button id="btn-miss" class="btn-secondary">Raté !</button>
+            <button id="btn-validate" class="btn-primary" disabled>Valider</button>
+        </div>
+    </div>
+
+    <!-- Écran fin de partie -->
+    <div id="screen-end" class="screen">
+        <div class="end-container">
+            <h1 class="winner-title" id="winner-title">Victoire !</h1>
+            <p class="winner-name" id="winner-name"></p>
+            <div id="final-scores" class="final-scores"></div>
+            <button id="btn-new-game" class="btn-primary">Nouvelle partie</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
